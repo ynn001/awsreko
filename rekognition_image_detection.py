@@ -7,9 +7,9 @@ Purpose
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Rekognition to
 recognize people, objects, and text in images.
 
-The usage demo in this file uses images in the .media folder. If you run this code
+The usage demo in this file uses images in the ./media folder. If you run this code
 without cloning the GitHub repository, you must first download the image files from
-    https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rekognition/.media
+    https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/python/example_code/rekognition/./media
 """
 
 # snippet-start:[python.example_code.rekognition.image_detection_imports]
@@ -230,13 +230,13 @@ def usage_demo():
 
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     rekognition_client = boto3.client('rekognition')
-    street_scene_file_name = ".media/pexels-kaique-rocha-109919.jpg"
-    celebrity_file_name = ".media/pexels-pixabay-53370.jpg"
+    street_scene_file_name = "./media/pexels-kaique-rocha-109919.jpg"
+    celebrity_file_name = "./media/pexels-pixabay-53370.jpg"
     one_girl_url = 'https://dhei5unw3vrsx.cloudfront.net/images/source3_resized.jpg'
     three_girls_url = 'https://dhei5unw3vrsx.cloudfront.net/images/target3_resized.jpg'
     swimwear_object = boto3.resource('s3').Object(
         'console-sample-images-pdx', 'yoga_swimwear.jpg')
-    book_file_name = '.media/pexels-christina-morillo-1181671.jpg'
+    book_file_name = './media/pexels-christina-morillo-1181671.jpg'
 
     street_scene_image = RekognitionImage.from_file(
         street_scene_file_name, rekognition_client)
@@ -293,13 +293,6 @@ def usage_demo():
         ['aqua'])
     input("Press Enter to continue.")
 
-    swimwear_image = RekognitionImage.from_bucket(swimwear_object, rekognition_client)
-    print(f"Detecting suggestive content in {swimwear_object.key}...")
-    labels = swimwear_image.detect_moderation_labels()
-    print(f"Found {len(labels)} moderation labels.")
-    for label in labels:
-        pprint(label.to_dict())
-    input("Press Enter to continue.")
 
     book_image = RekognitionImage.from_file(book_file_name, rekognition_client)
     print(f"Detecting text in {book_image.image_name}...")
